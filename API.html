@@ -1,0 +1,73 @@
+<html>
+    <style>
+        table 
+        {
+            background-image: url(background.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 10px;
+            border: 5px solid black;
+        }
+        table 
+        {
+            border-spacing: 0;
+        }
+        p 
+        {
+            font-size: 120%; 
+        }
+        #td1
+        {
+            border-right: 3px solid;
+        }
+        #td2
+        {
+            padding-left: 10;
+            padding-right: 10;
+            text-align: left; 
+            font-family: FANTASY; 
+        }
+        #td3
+        {
+            padding-right: 10;
+            text-align: left; 
+            font-family: TAHOMA; 
+
+        }
+    </style>
+
+    <table>
+        <tr>
+            <td id="td1">
+                <p class="weather__icon"></p>
+            </td>
+            <td id="td2">
+                <p> City:</p>
+                <p> Temperature:</p>
+                <p> Status:</p>
+            </td>
+            <td id="td3">
+                <p class="weather__city"></p>
+                <p class="weather__forecast"></p>
+                <p class="weather__desc"></p>
+            </td>
+        </tr>
+    </table>
+</html>
+
+
+<script type="text/javascript">
+
+fetch('http://api.openweathermap.org/data/2.5/weather?q=Moscow&appid=15a1f81f519847d389cbd25a350eab45').then((resp) => {return resp.json() }).then((data) =>
+{
+    document.querySelector('.weather__city').textContent = data.name;
+    document.querySelector('.weather__forecast').innerHTML = Math.round(data.main.temp - 273) + '&deg;';
+    document.querySelector('.weather__desc').textContent = data.weather[0]['description'];
+    document.querySelector('.weather__icon').innerHTML = `<img src="https://openweathermap.org/img/wn/${data.weather[0]['icon']}@2x.png">`;
+})
+    .catch(function () 
+    {
+
+    });
+    
+</script>
